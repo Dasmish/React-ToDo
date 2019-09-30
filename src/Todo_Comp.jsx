@@ -39,6 +39,7 @@ export default class TodoList extends React.PureComponent {
 
     async getJSONTasks () {
         let read = await fetch('127.0.0.1:3001/dolphins');
+        console.log('object')
         console.log(read)
         let data = await read.json();
         console.log(data)
