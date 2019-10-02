@@ -4,6 +4,11 @@ let storage = window.localStorage;
 let counter = null;
 export default class TodoList extends React.PureComponent {
 
+    constructor(props) {
+        super(props)
+        this.state = {}
+    }
+
     createLi = (InnerText) => {
         let node = document.createElement('li');
         let div_node = document.createElement('div');
@@ -37,17 +42,21 @@ export default class TodoList extends React.PureComponent {
         }
     }
 
-    async getJSONTasks () {
-        let read = await fetch('127.0.0.1:3001/dolphins');
-        console.log('object')
-        console.log(read)
-        let data = await read.json();
-        console.log(data)
+    getJSONTasks () {
+        fetch('/tasks.json').then(
+            resp => resp.json()
+        ).then(
+            data => {
+                console.log(data)
+                
+            }
+        )
     }
 
     componentDidMount() {
         // this.getTasks();
         this.getJSONTasks();
+
         document.querySelector('.todo-input').addEventListener('keydown', e => {
             this.createList(e);
         })
